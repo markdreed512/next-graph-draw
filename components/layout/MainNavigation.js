@@ -5,15 +5,15 @@ function MainNavigation() {
 
   return (
     <header className={classes.header}>
-      <div className={classes.logo}>React Meetups</div>
+      <div className={classes.logo}>Graph Draw</div>
       <nav>
         <ul>
           <li>
-            <Link href='/'>All Meetups</Link>
+            <Link href='/'>Home</Link>
           </li>
-          <li>
+          {/* <li>
             <Link href='/new-meetup'>Add New Meetup</Link>
-          </li>
+          </li> */}
         </ul>
       </nav>
     </header>
