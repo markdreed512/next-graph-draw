@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import { MongoClient, ObjectId } from 'mongodb'
 import Sketch from '../../components/Sketch'
+import classes from './index.module.css'
 
  function SingleImageView(props) {
     console.log("props:", props)
@@ -9,7 +10,9 @@ import Sketch from '../../components/Sketch'
         <Head>
             {/* <title>{props.meetupData.title}</title> */}
         </Head>
-        <Sketch image={props.imageData.url} width={props.imageData.width} height={props.imageData.height}/>
+        <div className={classes.sketchContainer}>
+            <Sketch image={props.imageData.url} width={props.imageData.width} height={props.imageData.height} />
+        </div>
     </>
   );
 }

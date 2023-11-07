@@ -1,0 +1,4 @@
+.react-p5-wrapper{
+    display: flex;
+    flex-direction: column;
+}

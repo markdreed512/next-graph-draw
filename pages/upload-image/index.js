@@ -1,7 +1,8 @@
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 
 function uploadImagePage() {
-    // const [ name, setName ] = useState('')
+    const router = useRouter()
     const [ imageFile, setImageFile ] = useState(null)
     const [ width, setWidth ] = useState("")
     const [ height, setHeight ] = useState("")
@@ -55,6 +56,7 @@ function uploadImagePage() {
                 })
             })
             if(!res.ok) throw new Error (await res.text())
+            router.push('/images')
         }
         catch(err){
             console.error(err)
