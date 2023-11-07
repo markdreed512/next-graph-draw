@@ -1,12 +1,15 @@
 import Head from 'next/head'
 import { MongoClient, ObjectId } from 'mongodb'
+import Sketch from '../../components/Sketch'
+
  function SingleImageView(props) {
+    console.log("props:", props)
   return (
     <>
         <Head>
             {/* <title>{props.meetupData.title}</title> */}
         </Head>
-        <img src={props.imageData.url}/>
+        <Sketch image={props.imageData.url} width={props.imageData.width} height={props.imageData.height}/>
     </>
   );
 }
@@ -43,7 +46,9 @@ export async function getStaticProps(context){
     return {
         props: {
             imageData: {
-                url: selectedImage.data
+                url: selectedImage.data.file,
+                width: selectedImage.data.width,
+                height: selectedImage.data.height
             }
         }
     }

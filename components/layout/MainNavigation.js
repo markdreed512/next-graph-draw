@@ -11,9 +11,12 @@ function MainNavigation() {
           <li>
             <Link href='/'>Home</Link>
           </li>
-          {/* <li>
-            <Link href='/new-meetup'>Add New Meetup</Link>
-          </li> */}
+          <li>
+            <Link href='/images'>All Images</Link>
+          </li>
+          <li>
+            <Link href='/upload-image'>Add Image</Link>
+          </li>
         </ul>
       </nav>
     </header>

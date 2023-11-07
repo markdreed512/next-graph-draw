@@ -3,6 +3,8 @@ import { useState } from 'react'
 function uploadImagePage() {
     // const [ name, setName ] = useState('')
     const [ imageFile, setImageFile ] = useState(null)
+    const [ width, setWidth ] = useState("")
+    const [ height, setHeight ] = useState("")
 
     function convertToBase64(file){
         return new Promise((resolve, reject) => {
@@ -16,8 +18,22 @@ function uploadImagePage() {
             }
         })
     }
+    async function getImageDimensions(file) {
+        let img = new Image();
+        img.src = URL.createObjectURL(file);
+        await img.decode();
+        let width = img.width;
+        let height = img.height;
+        return {
+            width,
+            height,
+        }
+      }
 
     const handleFileSelect = async (e) => {
+        const dimensions = await getImageDimensions(e.target.files?.[0])
+        setWidth(dimensions.width)
+        setHeight(dimensions.height)
         const base64File = await convertToBase64(e.target.files?.[0])
         setImageFile(base64File)
     }
@@ -26,12 +42,17 @@ function uploadImagePage() {
         if (!imageFile) return 
 
         try {
-            // const data = new FormData()
-            // data.set('file', imageFile)
-
             const res = await fetch('/api/new-image', {
                 method: 'POST',
-                body: imageFile
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    width: width,
+                    height: height,
+                    file: imageFile
+                })
             })
             if(!res.ok) throw new Error (await res.text())
         }

@@ -22,9 +22,10 @@ function Images() {
         <ul>
             {
                 imagesFromDb.map(image => {
+                    console.log("image.data.width: ", image.data.width)
                     return (
                         <li key={image._id} className={classes.listItem}>
-                            <img src={image.data} className={classes.thumbnail} />
+                            <img src={image.data.file} className={classes.thumbnail} />
                             <button onClick={selectImage} data-id={image._id}>Select</button>
                         </li>
                     ) 
