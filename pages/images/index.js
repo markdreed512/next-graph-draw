@@ -1,12 +1,12 @@
 import { useState, useEffect  } from 'react'
 
 function Images() {
-    const [imageArray, setImageArray ] = useState([{title: "test", id: 1}])
+    const [ imagesFromDb, setImagesFromDb ] = useState([])
     useEffect(() => {
         async function getImages(){
             const response = await fetch('../api/get-images')
-            const data = response.json()
-            console.log("get images data:" ,data)
+            const data = await response.json()
+            setImagesFromDb(data)
         }
         getImages()
     }, [])
@@ -14,9 +14,12 @@ function Images() {
     return (
         <ul>
             {
-                imageArray.map(image => {
+                imagesFromDb.map(image => {
                     return (
-                        <li key={image.id}>{image.title}</li>
+                        <>
+                        {/* <li key={image.id}>{image.title}</li> */}
+                        <img src={image.data}></img>
+                        </>
                     ) 
                 })
             }
