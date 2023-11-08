@@ -7,6 +7,10 @@ export default function Sketch(props) {
     let h = +props.height
     let cellSize = 50
     let slider
+    let clickedX
+    let clickedY
+    let blackedOutSquares = []
+    let alphabet = "_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     const sketch = p5 => {
         p5.setup = () => {
             bg = p5.loadImage(props.image)
@@ -23,10 +27,20 @@ export default function Sketch(props) {
                 for(let y = 0; y < h; y += cellSize){
                     p5.line(x, 0, x, h)
                     p5.line(0, y, w, y)
+                    // draw a blackout square? 
                 }
             }
 
         };
+        p5.mousePressed = () => {
+            console.log(p5.mouseX, p5.mouseY)
+            blackedOutSquares.push({
+                    // only push one object for each clicked square, not each click
+                }
+            )
+            // clickedX = p5.mouseX
+            // clickedY = p5.mouseY
+        }
     };
     return (
         <NextReactP5Wrapper sketch={sketch} />

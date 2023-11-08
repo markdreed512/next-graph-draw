@@ -1,0 +1,19 @@
+.form{
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    gap: 10px;
+    max-width: 400px;
+    padding: 20px;
+    background-color: rgb(80, 163, 163);
+    border-radius: 5px;
+    margin: 0 auto;
+    color: rgb(255, 255, 255);
+    box-shadow: 2px 2px 5px #b3adad;
+}
+.input{
+    width: 100%;
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 5px;;
+}
