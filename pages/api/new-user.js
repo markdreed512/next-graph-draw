@@ -9,7 +9,7 @@ async function handler(req, res){
         const salt = await bcrypt.genSalt()
         const hashedPassword = await bcrypt.hash(password, salt)
 
-        const hashedData = {
+        const user = {
             username: username,
             password: hashedPassword
         }
@@ -19,7 +19,7 @@ async function handler(req, res){
 
         const usersCollection = db.collection('users')
 
-        const result = await usersCollection.insertOne({hashedData})
+        const result = await usersCollection.insertOne({user})
 
         console.log(result)
 
