@@ -1,13 +1,15 @@
-import { createStore } from 'redux'
+import { createStore, combineReducers } from 'redux'
 
-// const loggedInUserReducer = (state = {loggedInUser: null}, action) => {
-//     if(action.type === 'logIn'){
-
-//     }
-//     if(action.type === 'logOut'){
-
-//     }
-// }
+const loggedInUserReducer = (state = null, action) => {
+    if(action.type === 'logIn'){
+        return {loggedInUser: "logged in UUUSSEr!!"}
+    }
+    if(action.type === 'logOut'){
+        return {loggedInUser: "logged oout dude"}
+    }else{
+        return state
+    }
+}
 const isLoggedInReducer = (state = {isLoggedIn: false}, action) =>{
     switch(action.type){
         case "LOGIN":
@@ -20,6 +22,13 @@ const isLoggedInReducer = (state = {isLoggedIn: false}, action) =>{
     
 }
 
-const store = createStore(isLoggedInReducer)
+const allReducers = combineReducers({
+    loggedInUser: loggedInUserReducer,
+    isLoggedIn: isLoggedInReducer
+})
+
+const store = createStore(allReducers)
+// const store = createStore(isLoggedInReducer)
+
 
 export default store

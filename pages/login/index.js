@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { useRouter } from 'next/router'
 import styles from '../../styles/signup.module.css'
 
 function loginPage() {
     const isLoggedIn = useSelector(state => state.isLoggedIn)
     const dispatch = useDispatch()
+    const router = useRouter()
 
     const [ username, setUsername ] = useState('')
     const [ password, setPassword ] = useState('')
@@ -42,10 +44,7 @@ function loginPage() {
     if(response === "Username and Password match"){
         // update redux state
         dispatch({type: "LOGIN"})
-        setMessage(username + ' is logged in')
-
-        setUsername('')
-        setPassword('') 
+        router.push('/')
     }
     else{
         setMessage('There is no user with that username and password')
@@ -60,7 +59,7 @@ function loginPage() {
             <input type="text" placeholder="Select username"className={styles.input} onChange={handleUsernameChange} value={username}/>
             <input type="password" placeholder='Select password' className={styles.input} onChange={handlePasswordChange} value={password}/>
             <input type="submit" value='Submit' className={styles.input}/>      
-            <p className={styles.message}>{message + ": " + isLoggedIn}</p>
+            <p className={styles.message}>{message}</p>
         </form> 
   
       </>
