@@ -8,22 +8,12 @@ async function handler(req, res){
 
         const usersCollection = await db.collection('users')
 
-        const user = await usersCollection.findOne({}, {username: req.body.username })
+        const user = await usersCollection.findOne({}, {_id: new ObjectId(req.body.id) })
         console.log("user...", user.user.username)
         if(!user){
             return res.status(400).json("Cannot find user")
         }
-        const match = await bcrypt.compare(req.body.password, user.user.password)
-        try{
-            if (await bcrypt.compare(req.body.password, user.user.password)){
-                res.json({message: "Username and Password match", body: user._id})
-            }else{
-                res.json('Not Allowed')
-            }
-        }
-        catch{
-            res.json("Caught")
-        }
+        res.json({message: "Found user by id: ", body: user._id})
 
         client.close()
     }

@@ -1,13 +1,13 @@
-import { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useState, useContext } from 'react'
 import { useRouter } from 'next/router'
+import { loggedInUserContext } from '../_app'
+
 import styles from '../../styles/signup.module.css'
 
 function loginPage() {
-    const isLoggedIn = useSelector(state => state.isLoggedIn)
-    const dispatch = useDispatch()
     const router = useRouter()
 
+    const [ loggedInUser, setLoggedInUser ] = useContext(loggedInUserContext)
     const [ username, setUsername ] = useState('')
     const [ password, setPassword ] = useState('')
     const [ message, setMessage ] = useState('')
@@ -28,29 +28,27 @@ function loginPage() {
         setMessage('Please enter password')
       }
 
-    const userData = {
-        username,
-        password
-    }
-    const dbRes = await fetch('/api/get-user', {
-        method: 'POST', 
-        body: JSON.stringify(userData),
-        headers: {
-        'Content-Type': 'application/json'
-        }
-    })
-    const response = await dbRes.json()
-    console.log("response: ", response)
-    if(response === "Username and Password match"){
-        // update redux state
-        dispatch({type: "LOGIN"})
-        router.push('/')
-    }
-    else{
-        setMessage('There is no user with that username and password')
-    }
-
-
+      const userData = {
+          username,
+          password
+      }
+      const dbRes = await fetch('/api/get-user', {
+          method: 'POST', 
+          body: JSON.stringify(userData),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+      })
+      const response = await dbRes.json()
+      if(response.message === "Username and Password match"){
+          console.log("ID?", response.body)
+          // set global loggedInUser
+        
+          router.push('/dashboard/' + loggedInUser.id)
+      }
+      else{
+          setMessage('There is no user with that username and password')
+      }
     }
     return (
       <>

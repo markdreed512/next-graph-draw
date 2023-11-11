@@ -1,22 +1,25 @@
 import classes from './MainNavigation.module.css';
 import Link from 'next/link'
-import { useSelector, useDispatch } from 'react-redux'
+// import { useSelector, useDispatch } from 'react-redux'
 
 function MainNavigation() {
-  const isLoggedIn = useSelector(state => state.isLoggedIn)
-  console.log("isLoggedIn:", isLoggedIn)
-  const dispatch = useDispatch()
+  // const isLoggedIn = useSelector(state => state.isLoggedIn)
+  // console.log("isLoggedIn:", isLoggedIn)
+  // const dispatch = useDispatch()
   const handleLogOut = () => {
     // Left off here: 
     // need to dispatch logout
-    dispatch({type: "LOGOUT"})
+    // dispatch({type: "LOGOUT"})
   }
   return (
     <header className={classes.header}>
       <div className={classes.logo}>Graph Draw</div>
       <nav>
         <h1></h1>
-          {!isLoggedIn.isLoggedIn &&
+        <li>
+                <Link href='/login'>Log In</Link>
+              </li>
+          {/* {!isLoggedIn.isLoggedIn &&
             <ul>
               <li>
                 <Link href='/images'>My Images</Link>
@@ -33,7 +36,7 @@ function MainNavigation() {
             <ul>
               <button onClick={handleLogOut} >Log Out</button>.
             </ul>
-          }
+          } */}
         
       </nav>
     </header>

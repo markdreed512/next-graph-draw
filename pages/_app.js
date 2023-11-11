@@ -1,16 +1,19 @@
+import React, { useState } from 'react'
 import "../styles/globals.css";
 
-import { Provider } from 'react-redux'
-import store from '../store/index'
-
 import Layout from "../components/layout/Layout";
+
+export const loggedInUserContext = React.createContext()
 function MyApp({ Component, pageProps }) {
+  
+  const [ loggedInUser, setLoggedInUser ] = useState({id: "test-user-id"})
+
   return (
-    <Provider store={store}>
+    <loggedInUserContext.Provider value={[loggedInUser, setLoggedInUser]}>
       <Layout>
         <Component {...pageProps} />
       </Layout>
-    </Provider>
+    </loggedInUserContext.Provider>
   );
 }
 
