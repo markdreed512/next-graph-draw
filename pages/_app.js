@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }) {
       console.log("getUsers data: ", users)
       for(let i = 0; i < users.length; i++){
         let user = users[i]
-        if(user.loggedIn){
+        if(user.user.isLoggedIn){
           console.log("logged in user: ", user)
           setLoggedInUser(user)
         }else{
