@@ -13,7 +13,7 @@ async function handler(req, res){
         if(!user){
             return res.status(400).json("Cannot find user")
         }
-        res.json({message: "Found user by id: ", body: user._id})
+        res.json({message: "Found user by id: ", body: {id: user._id, username: user.user.username}})
 
         client.close()
     }

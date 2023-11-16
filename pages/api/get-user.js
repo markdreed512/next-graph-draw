@@ -16,7 +16,7 @@ async function handler(req, res){
         const match = await bcrypt.compare(req.body.password, user.user.password)
         try{
             if (await bcrypt.compare(req.body.password, user.user.password)){
-                res.json({message: "Username and Password match", body: user._id})
+                res.json({message: "Username and Password match", body: {id:user._id, username: user.user.username}})
             }else{
                 res.json('Not Allowed')
             }

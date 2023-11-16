@@ -1,22 +1,27 @@
+import { useContext } from 'react'
+import { UserContext } from '../_app'
+import Link from 'next/link'
 import Head from 'next/head'
-// import { useSelector, useDispatch } from 'react-redux'
-
-// import { MongoClient, ObjectId } from 'mongodb'
 
  function UserDashboard() {
-    // console.log("props:", props)
-    // const isLoggedIn = useSelector(state => state.isLoggedIn)
-    // const loggedInUser = useSelector(state => state.loggedInUser)
-  return (
-    <>
-        <Head>
-            {/* <title>{props.meetupData.title}</title> */}
-        </Head>
-        <div className="">
-            <h1 >Logged In User here</h1>
-        </div>
-    </>
-  );
+    const [ loggedInUser, setLoggedInUser ] = useContext(UserContext)
+    return (
+        <>
+            <Head>
+                {/* <title>{props.meetupData.title}</title> */}
+            </Head>
+            <div className="">
+                <h1 >{"Welcome, " + loggedInUser.username}</h1>
+                <div className="card-container">
+                    <Link href="/images">
+                        <div className="card" >
+                            <h2>My Images</h2>
+                        </div>
+                    </Link>
+                </div>
+            </div>
+        </>
+    );
 }
 
 export default UserDashboard;

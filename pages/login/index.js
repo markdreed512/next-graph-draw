@@ -1,13 +1,13 @@
 import { useState, useContext } from 'react'
 import { useRouter } from 'next/router'
-import { loggedInUserContext } from '../_app'
+import { UserContext } from '../_app'
 
 import styles from '../../styles/signup.module.css'
 
 function loginPage() {
     const router = useRouter()
 
-    const [ loggedInUser, setLoggedInUser ] = useContext(loggedInUserContext)
+    const [ loggedInUser, setLoggedInUser ] = useContext(UserContext)
     const [ username, setUsername ] = useState('')
     const [ password, setPassword ] = useState('')
     const [ message, setMessage ] = useState('')
@@ -20,7 +20,9 @@ function loginPage() {
     }
   
     const handleSubmit = async (e) => {
+      
       e.preventDefault()
+      console.log("submit")
       if(username === '' ){
         setMessage('Please enter username')
       }
@@ -40,11 +42,25 @@ function loginPage() {
           }
       })
       const response = await dbRes.json()
+      console.log("resp0nse: ", response)
       if(response.message === "Username and Password match"){
-          console.log("ID?", response.body)
-          // set global loggedInUser
-        
-          router.push('/dashboard/' + loggedInUser.id)
+        console.log("he3re: ", response.body)
+          const user = {
+            id: response.body.id,
+            username: response.body.username,
+            isLoggedIn: true
+          }
+          const loginUserRes = await fetch('/api/login-user', {
+            method: 'PATCH', 
+            body: JSON.stringify(user),
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+          const loginUserData = await loginUserRes.json()
+          console.log("loginUserData:", loginUserData)
+          setLoggedInUser(user)
+          // router.push('/dashboard')
       }
       else{
           setMessage('There is no user with that username and password')

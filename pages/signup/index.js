@@ -31,7 +31,8 @@ function SignupPage() {
     else if(password === repeatPW){
       const userData = {
           username,
-          password
+          password,
+          isLoggedIn: false
       }
       const response = await fetch('/api/new-user', {
         method: 'POST', 

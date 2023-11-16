@@ -1,6 +1,7 @@
 import { useState, useEffect  } from 'react'
 import { useRouter } from 'next/router'
 import classes from './images.module.css'
+import FileUploader from '@/components/FileUploader'
 
 function Images() {
     const [ imagesFromDb, setImagesFromDb ] = useState([])
@@ -19,19 +20,23 @@ function Images() {
         router.push("/" + e.target.getAttribute('data-id'))
     }
     return (
-        <ul>
-            {
-                imagesFromDb.map(image => {
-                    console.log("image.data.width: ", image.data.width)
-                    return (
-                        <li key={image._id} className={classes.listItem}>
-                            <img src={image.data.file} className={classes.thumbnail} />
-                            <button onClick={selectImage} data-id={image._id}>Select</button>
-                        </li>
-                    ) 
-                })
-            }
-        </ul>
+        <>
+            <FileUploader />
+            <ul>
+                {
+                    imagesFromDb.map(image => {
+                        console.log("image.data.width: ", image.data.width)
+                        return (
+                            <li key={image._id} className={classes.listItem}>
+                                <img src={image.data.file} className={classes.thumbnail} />
+                                <button onClick={selectImage} data-id={image._id}>Select</button>
+                            </li>
+                        ) 
+                    })
+                }
+            </ul>
+        </>
+
     )
 }
 

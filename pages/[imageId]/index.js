@@ -24,7 +24,7 @@ export async function getStaticPaths(){
     const imagesCollection = db.collection('images')
 
     const images = await imagesCollection.find({}, {_id: 1}).toArray()
-
+    
     client.close()
 
     return {
@@ -37,7 +37,8 @@ export async function getStaticPaths(){
 
 export async function getStaticProps(context){
     const imageId = context.params.imageId
-
+    console.log('context:', context)
+    console.log("imageID: ", imageId)
     const client = await MongoClient.connect('mongodb+srv://cdmarkemailtest:n3AazDH3OX8KJ2WU@cluster0.llsqyvn.mongodb.net/images?retryWrites=true&w=majority')
     const db = client.db()
 
