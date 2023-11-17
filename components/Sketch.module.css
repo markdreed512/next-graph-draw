@@ -2,3 +2,12 @@
     display: flex;
     flex-direction: column;
 }
+.blackoutBtn{
+    height: 50px;
+    width: 200px;
+}
+.sketchContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
