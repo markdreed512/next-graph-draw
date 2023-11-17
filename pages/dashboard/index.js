@@ -5,13 +5,14 @@ import Head from 'next/head'
 
  function UserDashboard() {
     const [ loggedInUser, setLoggedInUser ] = useContext(UserContext)
+    console.log("loggedInUser: ", loggedInUser)
     return (
         <>
             <Head>
                 {/* <title>{props.meetupData.title}</title> */}
             </Head>
             <div className="">
-                <h1 >{"Welcome, " + loggedInUser.username}</h1>
+                <h1 >{"Welcome, " + loggedInUser.user.username}</h1>
                 <div className="card-container">
                     <Link href="/images">
                         <div className="card" >
