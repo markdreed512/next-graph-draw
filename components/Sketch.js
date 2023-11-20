@@ -13,6 +13,8 @@ export default function Sketch(props) {
     let alphabet = "_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     let blackoutButton
     let showCellsButton
+    let colorPicker
+    let strokeColor = "#fff"
     const sketch = p5 => {
         p5.setup = () => {
             console.log("setup")
@@ -23,26 +25,31 @@ export default function Sketch(props) {
             blackoutButton.mousePressed(blackoutCells)
             showCellsButton = p5.createButton("Show All Cells")
             showCellsButton.mousePressed(showCells)
+            colorPicker = p5.createColorPicker()
+            colorPicker.changed(handleColorPick)
             p5.createP('')
             p5.createCanvas(w,h);
             cellSize = slider.value()
             createCellArray()
             document.querySelector('#cell_size_slider').addEventListener("change", createCellArray)
             p5.fill('black')
-            p5.stroke('white')
+            p5.stroke(strokeColor)
+            p5.strokeWeight(1)
         }
 
         p5.draw = () => {
+            cellSize = slider.value()
+            // createCellArray()
             p5.background(bg);
+            p5.stroke(strokeColor)
+            drawGrid()
             cellArray.forEach(cell => {
-                p5.line(cell.x, 0, cell.x, h)
-                p5.line(0, cell.y, w, cell.y)
                 if(!cell.visible){
                     p5.fill("black")
-                    p5.stroke("white")
                     p5.square(cell.x, cell.y, cellSize)
                 }
-            })
+            }) 
+            
         };
         p5.mousePressed = () => {
             clickedX = p5.mouseX
@@ -62,6 +69,7 @@ export default function Sketch(props) {
             cellSize = +e.target.value
         }
         const createCellArray = () => {
+            cellArray= []
             for(let x = 0; x < w; x += cellSize ){
                 for(let y = 0; y < h; y += cellSize){
                     let newCell = {
@@ -72,22 +80,35 @@ export default function Sketch(props) {
                     cellArray.push(newCell)
                 }
             }
-            console.log("createCellARray:", cellArray)
         }
         const blackoutCells = (e) => {
             cellArray.forEach(cell => {
                 cell.visible = false
             })
+            console.log(cellArray)
         }
         const showCells = (e) => {
             cellArray.forEach(cell => {
                 cell.visible = true
             })
         }
+        const drawGrid = () => {
+            for(let x = 0; x < p5.width; x+= cellSize){
+                for(let y = 0; y < p5.height; y+= cellSize){
+                    p5.line(x, 0 , x, p5.height)
+                    p5.line(0, y , p5.width, y)
+                }
+                
+            }
+        }
+        const handleColorPick = () =>{
+            strokeColor = colorPicker.value()
+            console.log("strokeColor:", strokeColor)
+        }
 
     };
     return (
-        <div className={sketchStyles.sketchContainer}>        
+        <div className={sketchStyles.sketchContainer}>   
             <NextReactP5Wrapper sketch={sketch} />
         </div>
 
