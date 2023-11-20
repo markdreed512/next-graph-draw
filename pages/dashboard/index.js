@@ -5,7 +5,6 @@ import Head from 'next/head'
 
  function UserDashboard() {
     const [ loggedInUser, setLoggedInUser ] = useContext(UserContext)
-    console.log("loggedInUser: ", loggedInUser)
     return (
         <>
             <Head>

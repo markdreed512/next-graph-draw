@@ -20,9 +20,7 @@ function loginPage() {
     }
   
     const handleSubmit = async (e) => {
-      
       e.preventDefault()
-      console.log("submit")
       if(username === '' ){
         setMessage('Please enter username')
       }
@@ -42,9 +40,7 @@ function loginPage() {
           }
       })
       const response = await dbRes.json()
-      console.log("resp0nse: ", response)
       if(response.message === "Username and Password match"){
-        console.log("he3re: ", response.body)
           const user = {
             id: response.body.id,
             username: response.body.username,
@@ -58,7 +54,6 @@ function loginPage() {
             }
           })
           const loginUserData = await loginUserRes.json()
-          console.log("loginUserData:", loginUserData)
           setLoggedInUser(user)
           // router.push('/dashboard')
       }

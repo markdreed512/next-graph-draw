@@ -9,12 +9,10 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
     async function getLoggedInUser(){
       const response = await fetch('../api/users')
-      const users = await response.json()      
-      console.log("getUsers data: ", users)
+      const users = await response.json()    
       for(let i = 0; i < users.length; i++){
         let user = users[i]
         if(user.user.isLoggedIn){
-          console.log("logged in user: ", user)
           setLoggedInUser(user)
         }else{
           console.log("no logged in user")

@@ -8,13 +8,12 @@ function MainNavigation() {
   const handleLogOut = async () => {
     const response = await fetch('/api/logout-user', {
       method: "PATCH",
-      body: loggedInUser._id,
+      body: JSON.stringify({id: loggedInUser._id}),
       headers: {
         'Content-Type': 'application/json'
       }
     })
     const data = await response.json()
-    console.log("data: ", data.body)
   }
   
 
@@ -38,7 +37,7 @@ function MainNavigation() {
         }
         {loggedInUser &&
           <ul>
-            <li onClick={handleLogOut}>Log Out</li>
+            <li onClick={handleLogOut} className={classes.logout}>Log Out</li>
           </ul>
         }
       </nav>

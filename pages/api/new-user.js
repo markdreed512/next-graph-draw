@@ -23,8 +23,6 @@ async function handler(req, res){
 
         const result = await usersCollection.insertOne({user})
 
-        console.log(result)
-
         client.close()
 
         res.status(201).json({message: 'User inserted!'})

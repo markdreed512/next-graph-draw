@@ -17,7 +17,6 @@ export default function Sketch(props) {
     let strokeColor = "#fff"
     const sketch = p5 => {
         p5.setup = () => {
-            console.log("setup")
             bg = p5.loadImage(props.image)
             slider = p5.createSlider(20, 200, 100)
             slider.id("cell_size_slider")
@@ -85,7 +84,6 @@ export default function Sketch(props) {
             cellArray.forEach(cell => {
                 cell.visible = false
             })
-            console.log(cellArray)
         }
         const showCells = (e) => {
             cellArray.forEach(cell => {
@@ -103,7 +101,6 @@ export default function Sketch(props) {
         }
         const handleColorPick = () =>{
             strokeColor = colorPicker.value()
-            console.log("strokeColor:", strokeColor)
         }
 
     };

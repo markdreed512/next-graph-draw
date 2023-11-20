@@ -9,7 +9,6 @@ async function handler(req, res){
         const usersCollection = await db.collection('users')
 
         const user = await usersCollection.findOne({}, {username: req.body.username })
-        console.log("user...", user.user.username)
         if(!user){
             return res.status(400).json("Cannot find user")
         }

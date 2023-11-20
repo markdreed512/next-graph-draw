@@ -15,8 +15,6 @@ function Images() {
         getImages()
     }, [])
     const selectImage = (e) => {
-        // set selected image in state so individual page can access
-        console.log("click: ", e.target.getAttribute('data-id'))
         router.push("/" + e.target.getAttribute('data-id'))
     }
     return (
@@ -25,7 +23,6 @@ function Images() {
             <ul>
                 {
                     imagesFromDb.map(image => {
-                        console.log("image.data.width: ", image.data.width)
                         return (
                             <li key={image._id} className={classes.listItem}>
                                 <img src={image.data.file} className={classes.thumbnail} />
